@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 root = Tk()
 root.geometry("260x390")
@@ -9,6 +10,15 @@ myFrame_2 = Frame(root)
 myFrame_2.grid(column=0, row=1)
 
 
+#+++++++++++++++++++++Functions+++++++++++++++++++++
+
+
+def exitApp():
+    value = messagebox.askyesno("Exit", "Are you sure?")
+    if value == True:
+        root.destroy()
+
+
 #------------------------Menus------------------------
 
 Menu_main = Menu(root)
@@ -16,7 +26,7 @@ root.config(menu=Menu_main)
 Menu_DB = Menu(Menu_main, tearoff=0)
 Menu_main.add_cascade(label="DB", menu=Menu_DB)
 Menu_DB.add_command(label="Connect")
-Menu_DB.add_command(label="Salir")
+Menu_DB.add_command(label="Salir", command=exitApp)
 Menu_Borrar = Menu(Menu_main, tearoff=0)
 Menu_main.add_cascade(label="Borrar", menu=Menu_Borrar)
 Menu_Borrar.add_command(label="Borrar campos")
