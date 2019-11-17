@@ -10,12 +10,15 @@ myFrame.grid(column=0, row=0)
 myFrame_2 = Frame(root)
 myFrame_2.grid(column=0, row=1)
 
+
 #--------------------Variables---------------------
+
 
 variable_Name = StringVar()
 variable_Password = StringVar()
 variable_LastName = StringVar()
 variable_Address = StringVar()
+
 
 #--------------------Functions---------------------
 
@@ -53,7 +56,6 @@ def deleteTextFields():
 def createDB():
     myConnection = sqlite3.connect("../../Programacion/Python/Usuarios")
     myCursor = myConnection.cursor()
-
     values = (
         textField_2.get(),
         textField_3.get(),
@@ -61,7 +63,6 @@ def createDB():
         textField_5.get(),
         commentField.get("1.0", END)
     )
-
     myCursor.execute("INSERT INTO USUARIOS VALUES (NULL,?,?,?,?,?)", values)
     myConnection.commit()
     myConnection.close()
@@ -78,7 +79,6 @@ def readDB():
         myCursor = myConnection.cursor()
         myCursor.execute("SELECT * FROM USUARIOS WHERE ID=?", textField_1.get())
         values = myCursor.fetchall()
-
         for user in values:
             variable_Name.set(user[1])
             variable_Password.set(user[2])
@@ -86,7 +86,6 @@ def readDB():
             variable_Address.set(user[4])
             commentField.delete("1.0", END)
             commentField.insert(END,user[5])
-
         myConnection.commit()
         myConnection.close()
     except sqlite3.ProgrammingError:
@@ -111,7 +110,6 @@ def updateDB():
     else:
         messagebox.showwarning("Warning","No \"ID\" element added")
 
-
 def deleteDB():
     try:
         value=messagebox.askyesno("Delete Resgister", "Are you sure?")
@@ -127,7 +125,9 @@ def deleteDB():
     except sqlite3.ProgrammingError:
         messagebox.showwarning("Warning","No \"ID\" element added")
 
+
 #------------------------Menus------------------------
+
 
 Menu_main = Menu(root)
 root.config(menu=Menu_main)
@@ -151,6 +151,7 @@ Menu_Ayuda.add_command(label="Acerca de...")
 
 
 #-------------------------Text Fields---------------------
+
 
 textField_1 = Entry(myFrame)
 textField_1.grid(column=1, row=0, pady=10, padx=10)
@@ -176,6 +177,7 @@ commentField.config(yscrollcommand=bar.set)
 
 
 #-------------------------Labels------------------------
+
 
 Label(myFrame, text="ID:").grid(column=0, row=0, sticky="e", pady=10, padx=10)
 Label(myFrame, text="Nombre:").grid(column=0, row=1, sticky="e", pady=10, padx=10)
